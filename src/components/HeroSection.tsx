@@ -1,4 +1,3 @@
-import motorcycleImage from "@/assets/himalayan-motorcycle.png";
 import landscapeImage from "@/assets/himalayan-landscape.jpg";
 import logoImage from "@/assets/royal-enfield-logo.png";
 import { MapPin, User, Fuel, Gauge, Shield, Droplet } from "lucide-react";
@@ -139,18 +138,11 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Center - Motorcycle */}
+        {/* Center - Empty space for scroll motorcycle */}
         <div className="relative flex-1 flex items-center justify-center overflow-visible z-10">
-          {/* Motorcycle Image */}
+          {/* Motorcycle is now rendered as a fixed scroll-animated element */}
           <div className="relative w-full max-w-3xl px-4 transform translate-x-8">
-            <img
-              src={motorcycleImage}
-              alt="Royal Enfield Himalayan"
-              className="w-full h-auto object-contain"
-              style={{
-                filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.2))",
-              }}
-            />
+            {/* Placeholder space */}
           </div>
         </div>
 
