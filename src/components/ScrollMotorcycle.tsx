@@ -1,41 +1,44 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import motorcycleImage from "@/assets/himalayan-motorcycle.png";
 
 const ScrollMotorcycle = () => {
   const { scrollYProgress } = useScroll();
 
-  // Transform values based on scroll progress
-  // Section 1 (0-0.33): Hero position
-  // Section 2 (0.33-0.66): Move right and down
-  // Section 3 (0.66-1): Move to center bottom
+  // Smooth spring physics for buttery smooth animation
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 50,
+    damping: 20,
+    restDelta: 0.001,
+  });
 
+  // Transform values based on scroll progress - slower movement
   const y = useTransform(
-    scrollYProgress,
-    [0, 0.15, 0.33, 0.5, 0.66, 0.85, 1],
-    ["10vh", "40vh", "110vh", "140vh", "210vh", "260vh", "310vh"]
+    smoothProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    ["5vh", "105vh", "205vh", "290vh", "340vh"]
   );
 
   const x = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.5, 0.66, 1],
-    ["0%", "0%", "15%", "-10%", "5%"]
+    smoothProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    ["0%", "5%", "-5%", "10%", "0%"]
   );
 
   const scale = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.5, 0.66, 1],
-    [1, 1.1, 0.9, 1.15, 1]
+    smoothProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [1, 1.05, 0.95, 1.1, 1]
   );
 
   const rotate = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.66, 1],
-    [0, -3, 5, 0]
+    smoothProgress,
+    [0, 0.25, 0.5, 0.75, 1],
+    [0, -2, 3, -2, 0]
   );
 
   return (
     <motion.div
-      className="fixed left-1/2 z-[100] pointer-events-none"
+      className="fixed left-1/2 z-[100] pointer-events-none will-change-transform"
       style={{
         y,
         x,
@@ -44,7 +47,7 @@ const ScrollMotorcycle = () => {
         translateX: "-50%",
       }}
     >
-      <motion.img
+      <img
         src={motorcycleImage}
         alt="Royal Enfield Himalayan"
         className="w-[600px] lg:w-[800px] xl:w-[900px] h-auto object-contain"
